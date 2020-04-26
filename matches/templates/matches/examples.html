@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <title>IPL-Matches</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+  <style>
+
+
+#header
+{ background: transparent url({% static 'ipl.jpg' %}) repeat;}
+  </style>
+
+
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1>IPL MATCH EVALUATION</h1>
+          <h2></h2>
+        </div>
+      </div>
+      <div id="menubar">
+
+      </div>
+    </div>
+    <div id="site_content">
+
+      <div id="content">
+        <h1>Select Season</h1>
+
+            <form  method="post" action="{% url 'homeview' %}">
+                {% csrf_token %}
+              <label for="fname">First name:</label><br>
+              <select id="season" name="season">
+                  {% for year in season %}
+              <option value="{{ year }}">{{ year }}</option>
+                  {% endfor %}
+            </select>
+              <input type="submit" value="Submit">
+          </form>
+
+        {% if result %}
+
+        <h2>Top 4 Teams in the Season</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Wins</th></tr>
+          {% for team in top_4_teams %}
+          <tr><td>{{ team.winner }}</td><td>{{ team.num }}</td></tr>
+          {% endfor %}
+        </table>
+
+
+        <h2>The Team Won the most Number of Tosses</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Tossess</th></tr>
+          <tr><td>{{ max_toss_winner.toss_winner }}</td><td>{{ max_toss_winner.num }}</td></tr>
+        </table>
+
+         <h2>The Player Won The Maximum Number of Player of the Match awards</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Player</th><th>Total Wines</th></tr>
+          <tr><td>{{ max_player_of_match.player_of_match }}</td><td>{{ max_player_of_match.num }}</td></tr>
+        </table>
+
+         <h2>The Team Won Max Matches</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Matches</th></tr>
+          <tr><td>{{ max_winner_team.winner }}</td><td>{{ max_winner_team.num }}</td></tr>
+        </table>
+
+        <h2>The Location Has The Most Number Of Wins For The Top Team</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Venue</th><th>Total Matches</th></tr>
+          <tr><td>{{ max_wins_in_venue.venue }}</td><td>{{ max_wins_in_venue.num }}</td></tr>
+        </table>
+
+
+        <h2>The Percentage of teams decided to bat when they won the toss</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Total Matches</th><th>Total Matches choose Batting</th><th>Total % of Matches choose Batting</th></tr>
+          <tr><td>{{ bat_choose_percentage.total_season_count }}</td><td>{{ bat_choose_percentage.total_toss_bat_count }}</td><td>{{ bat_choose_percentage.team_per_choose_batting }}</td></tr>
+        </table>
+
+        <h2>The Location hosted most number of matches</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Venue</th><th>Total Matches</th></tr>
+          <tr><td>{{ most_match_location.city }}</td><td>{{ most_match_location.num }}</td></tr>
+        </table>
+
+        <h2>The team won by the highest margin of runs</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Runs</th></tr>
+          <tr><td>{{ highest_margin_runs.winner }}</td><td>{{ highest_margin_runs.win_by_runs }}</td></tr>
+        </table>
+
+
+        <h2>The team won by the highest number of wickets</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Wickets</th></tr>
+          <tr><td>{{ highest_wickets.winner }}</td><td>{{ highest_wickets.win_by_wickets }}</td></tr>
+        </table>
+
+        <h2>The total count the team won the toss and win the match</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Team</th><th>Total Number</th></tr>
+          {% for key, value in team_toss_win_count.items %}
+          <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+          {% endfor %}
+        </table>
+
+         <h2>The Batsman give away the total number of runs in the whole season</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Batsman</th><th>Total Runs</th></tr>
+          <tr><td>{{ max_run_by_batsman.batsman }}</td><td>{{ max_run_by_batsman.num }}</td></tr>
+        </table>
+
+        <h2>The number of catches by the fielder in the whole season</h2>
+        <table style="width:100%; border-spacing:0;">
+          <tr><th>Fielder</th><th>Total Catches</th></tr>
+          <tr><td>{{ total_num_catches.fielder }}</td><td>{{ total_num_catches.num }}</td></tr>
+        </table>
+
+        {% endif %}
+      </div>
+    </div>
+    <div id="footer">
+      <p>IPL MATCHES</p>
+    </div>
+  </div>
+</body>
+</html>
