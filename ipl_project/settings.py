@@ -93,6 +93,16 @@ WSGI_APPLICATION = 'ipl_project.wsgi.application'
 #     }
 # }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'd8bor9gn272b4v',
+        'USER': 'pakqegkranedow',
+        'PASSWORD': 'f4b4b95b6f3044e64619fd6b2a435ddaa254f9cd7527160f74281e94da4e4853',
+        'HOST': 'ec2-184-72-235-80.compute-1.amazonaws.com',
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
