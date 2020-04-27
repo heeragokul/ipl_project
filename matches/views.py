@@ -3,25 +3,18 @@ from django.shortcuts import redirect, render, HttpResponseRedirect
 from django.db.models import Count, Case, When
 
 from matches.models import Matches, Deliveries
-from matches.forms import SetIplSeasonForm
-
 
 
 class HomeView(TemplateView):
-
-    # template_name = 'matches/index.html'
     template_name = 'matches/examples.html'
 
     def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
         qs = Matches.objects.all().values('season').distinct()
         season_list =[year['season'] for year in qs]
         return {'season': season_list}
 
-
     def post(self, request, *args, **kwargs):
         context = {}
-        # form = SetIplSeasonForm(request.POST)
         season = request.POST['season']
         top_4_teams = Matches.objects.filter(season=season).values('winner').annotate(num=Count('winner')).order_by('-num')[:4]
         max_toss_winner = Matches.objects.filter(season=season).values('toss_winner').annotate(num=Count('toss_winner')).order_by('-num')[0]
