@@ -23,10 +23,19 @@ Then install the dependencies:
 ```
 
 Once `pip` has finished downloading the dependencies:
+
 ```sh
 (env)$ cd project
 (env)$ python manage.py migrate
+```
+
+After migration download the data from https://drive.google.com/file/d/1ie-WwMWr-K8B9nBUE7ZYjHLbl5IFIcwU/view. 
+and export the data into db tables and specify database details in settings.py file.
+After that 
+
+```sh
 (env)$ python manage.py runserver
 ```
+
 And navigate to `http://127.0.0.1:8000/`.
 
